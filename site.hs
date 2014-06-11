@@ -20,17 +20,14 @@ main = hakyll $ do
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
 
-  match "jobs/*" $ do
+  match "career/*" $ do
     route $ setExtension "html"
-    compile $ html5Compiler
-      >>= loadAndApplyTemplate "templates/job.html"    jobCtx
-      >>= loadAndApplyTemplate "templates/default.html" jobCtx
-      >>= relativizeUrls
+    compile $ html5Compiler >>= relativizeUrls
 
   match "career.html" $ do
     route  idRoute
     compile $ do
-      jobs <- recentFirst =<< loadAll "jobs/*"
+      jobs <- recentFirst =<< loadAll "career/*"
       let careerCtx = listField "jobs" jobCtx (return jobs) `mappend`
                       defaultContext
 
