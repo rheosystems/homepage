@@ -1,0 +1,8 @@
+* Homepage for Rheo Systems CC.
+** Picture format
+   - JPEG
+   - 150x150 px
+   - 72 px/in
+** Meta data for all files
+   - MIME type as per filetype
+   - Cache-Control: max-age=86400
