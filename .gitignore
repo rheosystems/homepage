@@ -3,3 +3,5 @@ _site/
 site
 *.hi
 *.o
+dist/
+.stack-work

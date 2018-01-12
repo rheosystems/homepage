@@ -1,50 +1,41 @@
---------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import Data.Monoid (mappend)
 import Hakyll
-import Text.Pandoc
---------------------------------------------------------------------------------
+
+
 main :: IO ()
 main = hakyll $ do
   match ("images/*" .||. "favicon.ico" .||. "robots.txt") $ do
-    route   idRoute
+    route idRoute
     compile copyFileCompiler
 
   match "css/*" $ do
-    route   idRoute
+    route idRoute
     compile compressCssCompiler
 
   match (fromList ["index.html", "contact.html"]) $ do
-    route   $ setExtension "html"
+    route $ setExtension "html"
     compile $ getResourceBody
       >>= loadAndApplyTemplate "templates/default.html" defaultContext
       >>= relativizeUrls
 
-  match "career/*" $ do
+  match "essays/*" $ do
     route $ setExtension "html"
-    compile $ html5Compiler >>= relativizeUrls
+    compile $ pandocCompiler
+      >>= loadAndApplyTemplate "templates/essay.html" defaultContext
+      >>= loadAndApplyTemplate "templates/default.html" defaultContext
+      >>= relativizeUrls
 
-  match "career.html" $ do
-    route  idRoute
+
+  match "essays.html" $ do
+    route idRoute
     compile $ do
-      jobs <- recentFirst =<< loadAll "career/*"
-      let careerCtx = listField "jobs" jobCtx (return jobs) `mappend`
-                      defaultContext
+      essays <- loadAll "essays/*"
+      let ctx = listField "essays" defaultContext (return essays) `mappend` defaultContext
 
       getResourceBody
-        >>= applyAsTemplate careerCtx
-        >>= loadAndApplyTemplate "templates/default.html" careerCtx
+        >>= applyAsTemplate ctx
+        >>= loadAndApplyTemplate "templates/default.html" ctx
         >>= relativizeUrls
 
   match "templates/*" $ compile templateCompiler
-
---------------------------------------------------------------------------------
-
-jobCtx :: Context String
-jobCtx = dateField "date" "%B %e, %Y" `mappend` defaultContext
-
-html5Compiler :: Compiler (Item String)
-html5Compiler = pandocCompilerWith defaultHakyllReaderOptions html5Writer
-
-html5Writer :: WriterOptions
-html5Writer = defaultHakyllWriterOptions { writerHtml5 = True }
