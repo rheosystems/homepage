@@ -1,10 +1,10 @@
 {-# LANGUAGE OverloadedStrings #-}
-import Data.Monoid (mappend)
+import Data.Monoid ((<>))
 import Hakyll
 
 
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
   match ("images/*" .||. "favicon.ico" .||. "robots.txt") $ do
     route idRoute
     compile copyFileCompiler
@@ -31,7 +31,7 @@ main = hakyll $ do
     route idRoute
     compile $ do
       essays <- loadAll "essays/*"
-      let ctx = listField "essays" defaultContext (return essays) `mappend` defaultContext
+      let ctx = listField "essays" defaultContext (return essays) <> defaultContext
 
       getResourceBody
         >>= applyAsTemplate ctx
@@ -39,3 +39,6 @@ main = hakyll $ do
         >>= relativizeUrls
 
   match "templates/*" $ compile templateCompiler
+
+config :: Configuration
+config = defaultConfiguration { deployCommand = "aws s3 --region eu-central-1 sync ./_site s3://rheosystems.com" }
