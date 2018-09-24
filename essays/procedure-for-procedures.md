@@ -154,7 +154,7 @@ must happen according to the responsibilities listed in the procedure.
 <td>Available in the document repository</td>
 </tr>
 <tr>
-<td>Procedure Review Checklist</td>
+<td>[Procedure Review Checklist](/essays/procedure-review-checklist.html)</td>
 <td>Available in the document repository</td>
 </tr>
 </tbody>
