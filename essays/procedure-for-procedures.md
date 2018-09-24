@@ -31,8 +31,12 @@ must happen according to the responsibilities listed in the procedure.
 
 # 3. Flow
 
-    <Insert Diagram>
-
+```
+ +----------+    +-----------+    +-----------+    +-----------+    +-----------+
+ | Identify | -> |  Develop  | -> |  Verify   | -> |  Verify   | -> |  Verify   |
+ |   Need   |    | Procedure |    | Procedure |	   | Procedure |    | Procedure |
+ +----------+    +-----------+    +-----------+	   +-----------+    +-----------+
+```
 
 # 4. Activities
 
