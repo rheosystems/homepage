@@ -1,8 +1,5 @@
 # Homepage for Rheo Systems (Pty) Ltd
 
-Made with [Hakyll](https://jaspervdj.be/hakyll/).
-
-
 ## Development
 
 Build with `stack build` then run `stack exec homepage -- watch` to
@@ -23,3 +20,8 @@ which must be correctly configured.
 
 - MIME type as per filetype
 - Cache-Control: max-age=86400
+
+
+## References
+
+Made with [Hakyll](https://jaspervdj.be/hakyll/).
